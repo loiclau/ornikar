@@ -25,10 +25,6 @@ class TemplateManager
 
     public function getTemplateComputed(Template $tpl, array $data)
     {
-        if (!$tpl) {
-            throw new \RuntimeException('no tpl given');
-        }
-
         $replaced = clone($tpl);
         $replaced->subject = $this->computeText($replaced->subject, $data);
         $replaced->content = $this->computeText($replaced->content, $data);
@@ -56,13 +52,7 @@ class TemplateManager
         $lesson = (isset($data['lesson']) and $data['lesson'] instanceof Lesson) ? $data['lesson'] : null;
 
         if ($lesson) {
-
             $this->initLesson($lesson);
-
-            if (strpos($text, '[lesson:instructor_link]') !== false) {
-                $instructor = InstructorRepository::getInstance()->getById($lesson->instructorId);
-            }
-
             $containsSummaryHtml = strpos($text, '[lesson:summary_html]');
             $containsSummary = strpos($text, '[lesson:summary]');
 
@@ -100,10 +90,16 @@ class TemplateManager
         if (strpos($text, '[lesson:end_time]') !== false)
             $text = str_replace('[lesson:end_time]', $lesson->start_time->format('H:i'), $text);
 
-        if (isset($instructor))
-            $text = str_replace('[lesson:link]', $this->MeetingPointRepository->url . '/' . $instructor->id . '/lesson/' . $this->lessonRepository->id, $text);
-        else
+        if (!empty($this->InstructorRepository)) {
+            $text = str_replace(
+                '[lesson:link]',
+                $this->MeetingPointRepository->url . '/' . $this->InstructorRepository->id .
+                '/lesson/' . $this->lessonRepository->id,
+                $text
+            );
+        } else {
             $text = str_replace('[lesson:link]', '', $text);
+        }
 
         /*
          * USER
