@@ -23,7 +23,12 @@ class TemplateManager
         $this->applicationContext = ApplicationContext::getInstance();
     }
 
-    public function getTemplateComputed(Template $tpl, array $data)
+    /**
+     * @param Template $tpl
+     * @param array $data
+     * @return Template
+     */
+    public function getTemplateComputed(Template $tpl, array $data): Template
     {
         $replaced = clone($tpl);
         $replaced->subject = $this->computeText($replaced->subject, $data);
@@ -35,7 +40,7 @@ class TemplateManager
     /**
      * @param Lesson $lesson
      */
-    public function initLesson(Lesson $lesson) : void
+    public function initLesson(Lesson $lesson): void
     {
         $oLesson = LessonRepository::getInstance();
         $this->lessonRepository = $oLesson->getById($lesson->id);
@@ -47,7 +52,12 @@ class TemplateManager
         $this->InstructorRepository = $oInstructor->getById($lesson->instructorId);
     }
 
-    private function computeText($text, array $data)
+    /**
+     * @param $text
+     * @param array $data
+     * @return string
+     */
+    private function computeText($text, array $data): string
     {
         $lesson = (isset($data['lesson']) && $data['lesson'] instanceof Lesson)
             ? $data['lesson']
@@ -67,7 +77,7 @@ class TemplateManager
             if (strpos($text, '[lesson:start_time]') !== false) {
                 $text = str_replace('[lesson:start_time]', $lesson->start_time->format('H:i'), $text);
             }
-            if (strpos($text, '[lesson:end_time]') !== false){
+            if (strpos($text, '[lesson:end_time]') !== false) {
                 $text = str_replace('[lesson:end_time]', $lesson->start_time->format('H:i'), $text);
             }
         }
@@ -82,7 +92,11 @@ class TemplateManager
         return $text;
     }
 
-    private function computeSummary($text)
+    /**
+     * @param $text
+     * @return string
+     */
+    private function computeSummary($text): string
     {
         $containsSummaryHtml = strpos($text, '[lesson:summary_html]');
         $containsSummary = strpos($text, '[lesson:summary]');
@@ -106,7 +120,11 @@ class TemplateManager
         return $text;
     }
 
-    private function computeInstructor($text)
+    /**
+     * @param $text
+     * @return string
+     */
+    private function computeInstructor($text): string
     {
         if (strpos($text, '[lesson:instructor_name]') !== false) {
             $text = str_replace('[lesson:instructor_name]', $this->InstructorRepository->firstname, $text);
@@ -125,17 +143,26 @@ class TemplateManager
         return $text;
     }
 
-    private function computeUser($text, $user)
+    /**
+     * @param $text
+     * @param $user
+     * @return string
+     */
+    private function computeUser($text, $user): string
     {
-        if($user && (strpos($text, '[user:first_name]') !== false)){
+        if ($user && (strpos($text, '[user:first_name]') !== false)) {
             $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
         }
         return $text;
     }
 
-    private function computeMeetingPoint($text)
+    /**
+     * @param $text
+     * @return string
+     */
+    private function computeMeetingPoint($text): string
     {
-        if (strpos($text, '[lesson:meeting_point]') !== false){
+        if (strpos($text, '[lesson:meeting_point]') !== false) {
             $text = str_replace('[lesson:meeting_point]', $this->MeetingPointRepository->name, $text);
         }
         return $text;
