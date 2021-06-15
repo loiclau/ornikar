@@ -12,6 +12,13 @@ use Template\Repository\InstructorRepository;
 
 class TemplateManager
 {
+    private $applicationContext;
+
+    public function __construct()
+    {
+        $this->applicationContext = ApplicationContext::getInstance();
+    }
+
     public function getTemplateComputed(Template $tpl, array $data)
     {
         if (!$tpl) {
@@ -27,8 +34,6 @@ class TemplateManager
 
     private function computeText($text, array $data)
     {
-        $APPLICATION_CONTEXT = ApplicationContext::getInstance();
-
         $lesson = (isset($data['lesson']) and $data['lesson'] instanceof Lesson) ? $data['lesson'] : null;
 
         if ($lesson) {
@@ -86,7 +91,7 @@ class TemplateManager
          * USER
          * [user:*]
          */
-        $_user = (isset($data['user']) and ($data['user'] instanceof Learner)) ? $data['user'] : $APPLICATION_CONTEXT->getCurrentUser();
+        $_user = (isset($data['user']) and ($data['user'] instanceof Learner)) ? $data['user'] : $this->applicationContext->getCurrentUser();
         if ($_user) {
             (strpos($text, '[user:first_name]') !== false) and $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($_user->firstname)), $text);
         }
