@@ -1,8 +1,13 @@
 <?php
 
+namespace Template\Context;
+
+use Template\Entity\MeetingPoint;
+use Template\Entity\Learner;
+
 class ApplicationContext
 {
-    use SingletonTrait;
+    use \Template\Helper\SingletonTrait;
 
     /**
      * @var MeetingPoint

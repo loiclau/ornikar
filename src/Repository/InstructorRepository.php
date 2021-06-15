@@ -1,8 +1,13 @@
 <?php
 
+namespace Template\Repository;
+
+use Template\Entity\Instructor;
+use Faker;
+
 class InstructorRepository implements Repository
 {
-    use SingletonTrait;
+    use \Template\Helper\SingletonTrait;
 
     private $firstname;
     private $lastname;

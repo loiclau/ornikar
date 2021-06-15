@@ -1,8 +1,13 @@
 <?php
 
+namespace Template\Repository;
+
+use Faker;
+use Template\Entity\MeetingPoint;
+
 class MeetingPointRepository implements Repository
 {
-    use SingletonTrait;
+    use \Template\Helper\SingletonTrait;
 
     private $url;
     private $name;

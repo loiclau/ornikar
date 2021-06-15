@@ -19,7 +19,7 @@ understandable by the next developer** and easy to change afterwards. Now is the
 show your exceptional skills and make this implementation better, extensible, and ready for future
 features.
 
-Sadly for you, the public method `TemplateManager::getTemplateComputed` is called everywhere, 
+Sadly for you, the public method `TemplateManager::getTemplateComputed` is called everywhere,
 and **you can't change its signature**. But that's the only one you can't modify (unless explicitly
 forbidden in a code comment), **every other class is ready for your changes**.
 
@@ -30,13 +30,16 @@ You can run the example file to see the method in action.
 
 ## Rules
 There are some rules to follow:
- - You must commit regularly
- - You must not modify code when comments explicitly forbid it
+- You must commit regularly
+- You must not modify code when comments explicitly forbid it
 
 ## Deliverables
 What do we expect from you:
- - the link of the git repository
- - several commits, with an explicit message each time
- - a file / message / email explaining your process and principles you've followed
+- the link of the git repository
+- several commits, with an explicit message each time
+- a file / message / email explaining your process and principles you've followed
 
 **Good luck!**
+
+## Process
+- refactor core to use namespace

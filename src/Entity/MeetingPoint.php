@@ -1,5 +1,7 @@
 <?php
 
+namespace Template\Entity;
+
 class MeetingPoint
 {
     public $id;

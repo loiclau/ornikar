@@ -1,8 +1,14 @@
 <?php
 
+namespace Template\Repository;
+use Template\Entity\Lesson;
+use \DateInterval;
+use Faker;
+
+
 class LessonRepository implements Repository
 {
-    use SingletonTrait;
+    use \Template\Helper\SingletonTrait;
 
     private $siteId;
     private $instructorId;
