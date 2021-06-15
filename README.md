@@ -43,3 +43,11 @@ What do we expect from you:
 
 ## Process
 - refactor core to use namespace
+- clean condition
+- split global function in object function
+- clean style
+- add test coverage
+
+## TODO
+- Entity accessor/mutator
+- manage summary
