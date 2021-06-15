@@ -49,7 +49,9 @@ class TemplateManager
 
     private function computeText($text, array $data)
     {
-        $lesson = (isset($data['lesson']) and $data['lesson'] instanceof Lesson) ? $data['lesson'] : null;
+        $lesson = (isset($data['lesson']) && $data['lesson'] instanceof Lesson)
+            ? $data['lesson']
+            : null;
 
         if ($lesson) {
             $this->initLesson($lesson);
@@ -73,7 +75,10 @@ class TemplateManager
                 }
             }
 
-            (strpos($text, '[lesson:instructor_name]') !== false) and $text = str_replace('[lesson:instructor_name]', $this->InstructorRepository->firstname, $text);
+            if (strpos($text, '[lesson:instructor_name]') !== false) {
+                $text = str_replace('[lesson:instructor_name]', $this->InstructorRepository->firstname, $text);
+            }
+
         }
 
         if ($lesson->meetingPointId) {
@@ -105,9 +110,12 @@ class TemplateManager
          * USER
          * [user:*]
          */
-        $_user = (isset($data['user']) and ($data['user'] instanceof Learner)) ? $data['user'] : $this->applicationContext->getCurrentUser();
-        if ($_user) {
-            (strpos($text, '[user:first_name]') !== false) and $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($_user->firstname)), $text);
+        $user = (isset($data['user']) && ($data['user'] instanceof Learner))
+            ? $data['user']
+            : $this->applicationContext->getCurrentUser();
+
+        if($user && (strpos($text, '[user:first_name]') !== false)){
+            $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
         }
 
         return $text;
