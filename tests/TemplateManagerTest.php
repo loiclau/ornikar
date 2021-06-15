@@ -42,7 +42,7 @@ class TemplateManagerTest extends PHPUnit_Framework_TestCase
             1,
             'Votre leçon de conduite avec [lesson:instructor_name]',
             "
-Bonjour [user:first_name],
+Bonjour [user:first_name] [user:last_name] [user:email],
 
 La reservation du [lesson:start_date] de [lesson:start_time] à [lesson:end_time] avec [lesson:instructor_name] a bien été prise en compte!
 Voici votre point de rendez-vous: [lesson:meeting_point].
@@ -62,7 +62,7 @@ L'équipe Ornikar
 
         $this->assertEquals('Votre leçon de conduite avec ' . $expectedInstructor->firstname, $message->subject);
         $this->assertEquals("
-Bonjour " . $expectedUser->firstname . ",
+Bonjour " .  $expectedUser->firstname . " " . $expectedUser->lastname . " " . $expectedUser->email . ",
 
 La reservation du " . $start_at->format('d/m/Y') . " de " . $start_at->format('H:i') . " à " . $end_at->format('H:i') . " avec " . $expectedInstructor->firstname . " a bien été prise en compte!
 Voici votre point de rendez-vous: " . $expectedMeetingPoint->name . ".

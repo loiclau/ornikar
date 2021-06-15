@@ -153,6 +153,12 @@ class TemplateManager
         if ($user && (strpos($text, '[user:first_name]') !== false)) {
             $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
         }
+        if (strpos($text, '[user:last_name]') !== false) {
+            $text = str_replace('[user:last_name]', ucfirst(mb_strtolower($user->lastname)), $text);
+        }
+        if (strpos($text, '[user:email]') !== false) {
+            $text = str_replace('[user:email]', $user->email, $text);
+        }
         return $text;
     }
 

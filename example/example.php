@@ -12,7 +12,7 @@ $template = new Template(
     1,
     'Votre leçon avec [lesson:instructor_name]',
     "
-Bonjour [user:first_name],
+Bonjour [user:first_name] [user:last_name] [user:email],
 
 Merci d'avoir réservé une leçon de conduite avec  [lesson:instructor_name] le [lesson:start_date] à [lesson:meeting_point].
 
